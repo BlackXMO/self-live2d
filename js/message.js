@@ -118,6 +118,8 @@ function showMessage(text, timeout){
     $('.message').stop();
     $('.message').html(text).fadeTo(200, 1);
     if (timeout === null) timeout = 20000;
+    $('.hide-button').css("top",$("#landlord .message").height() - 30 + "px");
+        $('.switch-button').css("top",$("#landlord .message").height() + "px");
     hideMessage(timeout);
 }
 
@@ -128,13 +130,21 @@ function hideMessage(timeout){
 }
 
 function initLive2d (){
-    $('.hide-button').fadeOut(0).on('click', () => {
-        $('#landlord').css('display', 'none')
-    })
+     $('.hide-button').fadeOut(0).on('click', () => {
+        $('#landlord').remove();
+    });
+    $('.switch-button').fadeOut(0).on('click', () => {
+        $("#live2d").animate({opacity:'0'},100);
+        setTimeout("ChangePoi()",100);
+    });
     $('#landlord').hover(() => {
-        $('.hide-button').fadeIn(600)
+        $('.hide-button').css("top",$("#landlord .message").height() - 30 + "px");
+        $('.switch-button').css("top",$("#landlord .message").height() + "px");
+        $('.hide-button').fadeIn(200);
+        $('.switch-button').fadeIn(200);
     }, () => {
-        $('.hide-button').fadeOut(600)
+        $('.hide-button').fadeOut(200);
+        $('.switch-button').fadeOut(200);
     })
 }
 initLive2d ();
